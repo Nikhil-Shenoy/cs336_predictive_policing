@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block doc_title %} Basic Lookup Results {% endblock %}
+{% block title %} Basic Lookup Results {% endblock %}
+{% block tagline %} Results from the special query {% endblock %}
+{% block main %}
+
+	{% if flag == 'frequency' %}
+		<p align="middle">There are {{ final_count }} instances of {{ parameter }} </p>
+	{% elif flag == 'unique' %}
+		<p> The distint instances of {{ parameter }} are: </p>
+		<table style="width:50%;margin: 0 auto;">
+		<tr>
+			<td><b>{{ parameter }}</b></td>
+		</tr>
+		{% for result in results %}
+			<tr>
+			<td>{{ entry }}</td>
+			</tr>
+		{% endfor %}
+	{% endif %}
+	</table>
+{% endblock %}	

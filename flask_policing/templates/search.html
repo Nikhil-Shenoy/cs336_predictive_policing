@@ -1,13 +1,89 @@
 {% extends "layout.html" %}
-<p title="Search"></p>
-<div style="background-color:white; padding:20px;">
-{% block body %}
+{% block doc_title %} Basic Lookups {% endblock %}
+{% block title %} Basic Lookups {% endblock %}
+{% block tagline %} Look up raw data in the form of tables from our system {% endblock %}
+{% block main %}
+
+<!-- <form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputFile">File input</label>
+    <input type="file" id="exampleInputFile">
+    <p class="help-block">Example block-level help text here.</p>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox"> Check me out
+    </label>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+ -->
+<form method="post" action="{{ url_for('search_results') }}">
+
+	<label for="query_type">Select a special query: </label>
+	<select class="form-control" name="query_type" width="200px;" align="middle">
+		<option>Top 5</option>
+		<option>Frequency</option>
+		<option>Unique</option>
+	</select>
+
+	<label for="query_parameter">Select a parameter to analyze: </label>
+	<select class="form-control" name="query_parameter" width="200px;" align="middle">
+		<option>Officer Age</option>
+		<option>Officer Ethnicity</option>
+		<option>Officer Gender</option>
+		<option>Offender Age</option>
+		<option>Offender Ethnicity</option>
+		<option>Offender Gender</option>
+		<option>Offender Income</option>
+		<option>Category</option>
+		<option>Description</option>
+		<option>Date</option>
+		<option>Day of the Week</option>
+		<option>Police Department District</option>
+		<option>Resolution</option>
+		<option>Address</option>
+	</select>
+
+	<button type="submit" class="btn btn-default">Submit</button>
+</form>
+<!-- 
 	<table style="width:50%;margin: 0 auto;">
+	<tr>
+		<td><b>Incident ID</b></td>
+		<td><b>Officer Age</b></td>
+		<td><b>Officer Ethnicity</b></td>
+		<td><b>Officer Gender</b></td>
+		<td><b>Offender Age</b></td>
+		<td><b>Offender Ethnicity</b></td>
+		<td><b>Offender Gender</b></td>
+		<td><b>Offender Income</b></td>
+		<td><b>Category</b></td>
+		<td><b>Descript</b></td>
+	</tr>
 	{% for entry in entries %}
 		<tr>
-		<td>{{ entry.bar }}</td><td>{{ entry.beer }}</td><td>{{ entry.price }}</td>
+		<td>{{ entry.incident_id }}</td>
+		<td>{{ entry.officer_age }}</td>
+		<td>{{ entry.officer_ethnicity }}</td>
+		<td>{{ entry.officer_gender }}</td>
+		<td>{{ entry.offender_age }}</td>
+		<td>{{ entry.offender_ethnicity }}</td>
+		<td>{{ entry.offender_gender }}</td>
+		<td>{{ entry.offender_income }}</td>
+		<td>{{ entry.category }}</td>
+		<td>{{ entry.descript }}</td>
 		</tr>
 	{% endfor %}
-	</table>
-{% endblock %}
-</div>
+	</table> -->
+{% endblock %}	
+
+		<!-- <img src="{{plot_url}}"/> -->

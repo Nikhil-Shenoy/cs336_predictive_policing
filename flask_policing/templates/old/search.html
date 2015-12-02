@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+<p title="Search"></p>
+<div style="background-color:white; padding:20px;">
+{% block body %}
+	<table style="width:50%;margin: 0 auto;">
+	{% for entry in entries %}
+		<tr>
+		<td>{{ entry.bar }}</td><td>{{ entry.beer }}</td><td>{{ entry.price }}</td>
+		<img src="{{plot_url}}"/>
+		</tr>
+	{% endfor %}
+	</table>
+{% endblock %}
+</div>
