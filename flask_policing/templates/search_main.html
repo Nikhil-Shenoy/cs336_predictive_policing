@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block doc_title %} Search Main {% endblock %}
+{% block title %} {{ title }} {% endblock %}
+{% block tagline %} {{ tagline }}   {% endblock %}
+{% block main %}
+	<section id="two" class="wrapper style2 align-left">
+				<div class="container">
+					<header>
+						<h2 id="Numerical Search"><b>Numerical Search</b></h2>
+						<p>Numerical Search relies on a simple analysis scheme; you specify two attributes you want to compare, and we return histograms of the first parameter versus the second. We generate a histogram for every value of your second parameter, which provides you with the entire joint distribution of those two parameters</p>
+						<ul class="actions">
+							<li>
+								<a href="search" class="button alt big">Numerical Search</a>
+							</li>
+						</ul>
+					</header>
+
+					<header>
+						<h2 id="Top Records"><b>Top Records</b></h2>
+						<p>If you like to keep things simple, perhaps the Top Records feature is for you. Based on a given paramter, you'll get a table with top N values, where you can specify N.</p>
+						<ul class="actions">
+							<li>
+								<a href="top_records" class="button alt big">Top Records</a>
+							</li>
+						</ul>
+					</header>
+
+					<header>
+						<h2 id="Random Trend"><b>Random Trend</b></h2>
+						<p>Feeling capricious? Head over to our random trend section, and we'll give you just that.</p>
+						<ul class="actions">
+							<li>
+								<a href="search" class="button alt big">Random Treen</a>
+							</li>
+						</ul>
+					</header>
+				</div>
+	</section>
+
+	<!-- <footer>
+	</footer> -->
+{% endblock %}

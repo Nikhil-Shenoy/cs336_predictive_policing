@@ -26,17 +26,27 @@
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
  -->
-<form method="post" action="{{ url_for('search_results') }}">
+<form method="post" action="{{ url_for('search_results') }}" class="form-inline">
 
-	<label for="query_type">Select a special query: </label>
-	<select class="form-control" name="query_type" width="200px;" align="middle">
-		<option>Top 5</option>
-		<option>Frequency</option>
-		<option>Unique</option>
+	<label for="param_1">Analyze frequency of </label>
+	<select class="form-control" name="param_1" width="200px;" align="middle">
+		<option>Officer Age</option>
+		<option>Officer Ethnicity</option>
+		<option>Officer Gender</option>
+		<option>Offender Age</option>
+		<option>Offender Ethnicity</option>
+		<option>Offender Gender</option>
+		<option>Offender Income</option>
+		<option>Category</option>
+		<option>Description</option>
+		<option>Day of the Week</option>
+		<option>Police Department District</option>
+		<option>Resolution</option>
+		<option>Address</option>
 	</select>
 
-	<label for="query_parameter">Select a parameter to analyze: </label>
-	<select class="form-control" name="query_parameter" width="200px;" align="middle">
+	<label for="param_2">Select a parameter to analyze: </label>
+	<select class="form-control" name="param_2" width="200px;" align="middle">
 		<option>Officer Age</option>
 		<option>Officer Ethnicity</option>
 		<option>Officer Gender</option>
@@ -55,8 +65,8 @@
 
 	<button type="submit" class="btn btn-default">Submit</button>
 </form>
-<!-- 
-	<table style="width:50%;margin: 0 auto;">
+
+<!-- 	<table style="width:50%;margin: 0 auto;">
 	<tr>
 		<td><b>Incident ID</b></td>
 		<td><b>Officer Age</b></td>
