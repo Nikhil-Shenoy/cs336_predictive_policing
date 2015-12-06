@@ -5,7 +5,9 @@ import pprint
 import matplotlib.pyplot as plt
 import numpy as np 
 import sys
+from parse import *
 from pylab import *
+import os
 
 '''
 To-Do:
@@ -134,15 +136,19 @@ def search_results():
 			else:
 				query_1 = "SELECT DISTINCT {0} FROM locations, participants order by {0}".format(param_2)
 
-
+			print "get expected labels"
+			print label_query
 			expected_labels = list()
 			cursor.execute(label_query)
 			for row in cursor.fetchall():
 				expected_labels.append(row[0])
 
+			print "get distinct labels"
+			print query_1
 			cursor.execute(query_1)
 			distinct = list()
 			for row in cursor.fetchall():
+				print row
 				distinct.append(row[0])
 
 			distinct = custom_sort(distinct)
@@ -152,6 +158,7 @@ def search_results():
 			elif param_1 in p_cols:
 				table = 'participants'
 
+			print "query database for each graph's data"
 			# pp.pprint(distinct)
 			graph_data = dict()
 			for item in distinct:
@@ -159,6 +166,7 @@ def search_results():
 							WHERE {2} = \'{3}\' 
 							GROUP BY {0}'''.format(param_1,table,param_2,item)
 
+				print query_2
 				# print item
 				coordinates = list()	
 				try:
@@ -169,6 +177,7 @@ def search_results():
 					err = "Looks like something went wrong"
 					return render_template('search_results.html',error=err)
 
+				# print "getting coordinates"
 				for row in cursor.fetchall():
 					coordinates.append(row)
 
@@ -179,12 +188,12 @@ def search_results():
 					coordinates = correct_values(coordinates,expected_labels)
 				
 
-				# Account for case where there is zero retured for one of the items
 				graph_data[item] = sorted(coordinates,key=lambda tup: tup[1])
 
 
-			# pp.pprint(graph_data)
+			pp.pprint(graph_data)
 
+			print "graphing the data"
 			# Graph the data
 			for i in range(len(distinct)):
 				test = graph_data[distinct[i]]
@@ -224,6 +233,7 @@ def search_results():
 				plt.savefig("static/images/graphs/{0}.png".format(distinct[i]))
 				plt.close()
 			
+			print "creating image urls"
 			image_urls = list()
 			for key in graph_data:
 				key = replace_characters(key)
@@ -268,16 +278,92 @@ def top_records_results():
 		count = 0
 		results = list()
 		for row in cursor.fetchall():
-			if count < N:
-				print row
-				results.append(row)
-				count += 1
+			results.append(row)
+			count += 1
 
+		pp.pprint(results)
+		return render_template('top_records_results.html',col_1=org_1,results=results[0:N])
 
-		# pp.pprint(results)
-		return render_template('top_records_results.html',col_1=org_1,results=results)
 	else:
 		return render_template('top_records_results.html')		
+
+@app.route('/time_series')
+def time_series():
+	return render_template('time_series.html')
+
+@app.route('/time_series_results',methods=['GET','POST'])
+def time_series_results():
+	print "Inside time_series_results. Got {0} request".format(request.method)
+	if request.method == 'POST':
+		org_1 = request.form['param_1']
+		org_2 = request.form['param_2']
+		label_of_interest = convert[org_1]
+		time_period = org_2
+
+		# get distinct labels
+		if label_of_interest in l_cols:
+			table = "locations"
+		elif label_of_interest in p_cols:
+			table = 'participants'
+
+		label_query = "select distinct {0} from {1}".format(label_of_interest,table)
+		cursor.execute(label_query)
+		labels = list()
+		for row in cursor.fetchall():
+			labels.append(row[0])
+
+
+		# Sorted arrays to be used later for graphing
+		labels = sort(labels)
+		time_periods = list()
+		if time_period == "Hours in a day":
+			for i in range(24):
+				time_periods.append(str(i))
+		elif time_period == "Years":
+			year = 2003
+			while year != 2016:
+				time_periods.append(str(year))
+				
+		time_periods = sort(time_periods)
+
+		# set up the bins
+		bins = dict()
+		for period in time_periods:
+			bins[period] = 0
+
+		# Initialize each time_period's frequency dict
+		label_data = dict()
+		for label in labels:
+			if label != '':
+				label_data[label] = bins
+
+
+		# Issue the query for data
+		query = "select dates, {0} from {1}".format(label_of_interest,table)
+		cursor.execute(query)
+
+		
+		# Sort each data point into its appropriate bin
+		for row in cursor.fetchall():
+			if row[0] != '' and row[1] != '':
+				date = row[0]
+				label = row[1]
+
+				params = parse("{month}/{day}/{year} {hour}:{minutes}",date)
+
+				label_data[label][params['year']] += 1
+
+		pp.pprint(label_data)
+
+		# Extract data to prepare for graphing
+
+		
+		# pp.pprint(x_labels)
+
+
+
+
+		return render_template('time_series_results.html')
 
 
 @app.route('/search_main')
