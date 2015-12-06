@@ -254,7 +254,7 @@ def search_results():
 				width = 2
 				rects = plt.barh(ind + (width/2),values,align='center',color=colors)
 				plt.yticks(ind + (width/2),labels)
-				plt.xlabel('Frequency')
+				plt.xlabel('Frequency of Incidences')
 				plt.tick_params(axis='y',which='major',pad=15)
 				plt.title('Frequency of {0} = {1}'.format(org_1,distinct[i]))
 				plt.grid(True)
@@ -322,11 +322,10 @@ def top_records_results():
 		print query
 
 		cursor.execute(query)
-		count = 0
 		results = list()
 		for row in cursor.fetchall():
-			results.append(row)
-			count += 1
+			if row[0] != '':
+				results.append(row)
 
 		pp.pprint(results)
 		return render_template('top_records_results.html',col_1=org_1,results=results[0:N])
@@ -488,9 +487,9 @@ def time_series_results():
 	
 		# pp.pprint(legend)
 
-		plt.ylabel('Frequency')
+		plt.ylabel('Frequency of Incidences')
 		plt.xlabel('Time')
-		plt.title('Count of Crime by {0}'.format(org_1))
+		plt.title('Frequency of Crime by {0}'.format(org_1))
 		plt.grid(True)
 
 
@@ -517,12 +516,9 @@ def search_main():
 	return render_template('search_main.html',title='Search Main',tagline=tagline)
 
 
-
-
-
-
 if __name__ == '__main__':
 	app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
-	app.run(debug=True)
+	# app.run(debug=True)
+	app.run()
 
 
