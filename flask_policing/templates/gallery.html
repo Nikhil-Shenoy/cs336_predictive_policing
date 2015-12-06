@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block doc_title %} Gallery {% endblock %}
+{% block title %} Gallery {% endblock %}
+{% block tagline %} Examples of the analysis our system can perform {% endblock %}
+{% block main %}
+	<header>
+		<h2 style="text-align: center; <!-- font-weight: bold; -->">Gallery Search</h2>
+	</header>
+	
+	<p align="middle" style="font-size: 20px; line-height: 130%">This graph is a basic frequency measurement of the different types of crimes that happen on a Wednesday. The Numerical Search tool is used to generate this kinds of graphs, and it will generate a histogram for every possible independent variable.
+	</p>
+
+	<div class="wrapper align-center">
+		<img src="{{ url_for('static',filename='images/gallery/Wednesday.png') }}">
+	</div>
+
+	
+	<p align="middle" style="font-size: 20px; line-height: 130%">This graph tracks the frequency of crime types over a period of 24 hours. With this plot, one can compare several different trends on the same platform.
+	</p>
+
+	<div class="wrapper align-center">
+		<img src="{{ url_for('static',filename='images/gallery/time_series_Category_Hours.png') }}">
+	</div>
+
+
+	<footer class="wrapper align-center">
+		<ul class="actions">
+			<li>
+				<a href="{{ url_for('search_main') }}" class="button alt big"><b>Back to Search</b></a>
+				<!-- <button type="submit" class="btn btn-default">Submit</button> -->
+			</li>
+		</ul>
+	</footer>
+
+{% endblock %}

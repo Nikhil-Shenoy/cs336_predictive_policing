@@ -3,10 +3,20 @@
 {% block title %} Top Records {% endblock %}
 {% block tagline %} Generate your own Top N list for a label {% endblock %}
 {% block main %}
-	
+
+<h2 style="text-align: center; <!-- font-weight: bold; -->">Top Records Search</h2>
+
+<p align="middle" style="font-size: 20px; line-height: 130%">Making a search is easy. Simply enter a field using our drop-down menus to input your inquiry, and watch as we provide you with your answer!
+
+<br><br>
+
+<b style="color: white;">How to Use this Search</b>: Enter a field to analyze. For instance, say we want to find out how old most San Francisco police officers are. Specifically, we would like to find the fourth most common age of police officers making arrests. We can input "Officer Age" in the first drop-down menu and for N, in the second menu, type in 4. As our application will tell us, the fourth most common age of police officers in San Francisco making criminal arrests is 28 years old with 476 officers!
+
+</p>
+
 	<form method="post" action="{{ url_for('top_records_results') }}" class="form-inline">
 
-		<label for="param_1">Analyze frequency of </label>
+		<label for="param_1" style="color: white;">Analyze frequency of </label>
 		<select class="form-control" name="param_1" width="200px;" align="middle">
 			<option>Officer Age</option>
 			<option>Officer Ethnicity</option>
@@ -22,11 +32,20 @@
 			<option>Resolution</option>
 			<option>Address</option>
 		</select>
+		<br>
 
-		<label for="param_2">Select N: </label>
+		<label for="param_2" style="color: white;">Select <i>N</i>: </label>
 		<input type="text" name="param_2">
+		<br>
 
-		<button type="submit" class="btn btn-default">Submit</button>
+		<footer class="wrapper align-center">
+			<ul class="actions">
+				<li>
+					<!-- <a href="{{ url_for('top_records_results') }}" class="button alt big"><b>Submit</b></a> -->
+				<button type="submit" class="btn btn-default">Submit</button>
+				</li>
+			</ul>
+		</footer>
 	</form>
 	
 {% endblock %}

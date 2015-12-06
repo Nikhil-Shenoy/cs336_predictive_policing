@@ -1,17 +1,35 @@
 {% extends "layout.html" %}
 {% block doc_title %} Time Series Results {% endblock %}
 {% block title %} Time Series Results {% endblock %}
-{% block tagline %} Results from the Time Series query {% endblock %}
+{% block tagline %} Results from the {{ type }} Time Series query {% endblock %}
 {% block main %}
-	<!-- {% if error %}
+	{% if error %}
 		<p align="middle">Error: {{ error }}. Click the button below to try searching again.</p>
 	{% else %}
-		{% for link in urls %}
-			<img src={{ link }} align="middle">
-		{% endfor %}
-	{% endif %} -->
+		<header class="major">
+				<h2>Time Series Search Results</h2>
+		</header>
 
-	<footer>
+		<div class="wrapper align-center">
+			<img src={{ url }} align="middle">
+		</div>
+
+		<table style="width:50%;margin: 0 auto;">
+				<tr>
+					<td align="middle"><strong>{{ col_1 }}</strong></td>
+					<td align="middle"><strong>Count</strong></td>
+				</tr>
+				{% for pair in legend %}
+					<tr>
+						<td align="middle">{{ pair[0] }}</td>
+						<td align="middle">{{ pair[1] }}</td>
+					</tr>
+				{% endfor %}
+		</table>
+
+	{% endif %}
+
+	<footer class="wrapper align-center">
 		<ul align="middle" class="actions">
 			<li>
 				<a href="search_main" class="button alt big">Back to Search</a>

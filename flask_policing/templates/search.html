@@ -26,9 +26,19 @@
   <button type="submit" class="btn btn-default">Submit</button>
 </form> -->
 
+<h2 style="text-align: center; color: white; font-weight: bold;">Numerical Search</h2>
+
+<p align="middle" style="font-size: 20px; line-height: 130%">Making a search is easy. Simply enter a field using our drop-down menus to input your inquiry, and watch as we provide you with your answer!
+
+<br><br>
+
+<b style="color: white;">How to Use this Search</b>: Enter two fields to be compared. A histogram will be generated, allowing a more visual comparison between these parameters.
+
+</p>
+
 <form method="post" action="{{ url_for('search_results') }}" class="form-inline">
 
-	<label for="param_1">Analyze frequency of </label>
+	<label for="param_1" style="color: white;">Analyze frequency of </label>
 	<select class="form-control" name="param_1" width="200px;" align="middle">
 		<option>Officer Age</option>
 		<option>Officer Ethnicity</option>
@@ -45,7 +55,7 @@
 		<option>Address</option>
 	</select>
 
-	<label for="param_2">Select a parameter to analyze: </label>
+	<label for="param_2" style="color:white;">Select a parameter to analyze: </label>
 	<select class="form-control" name="param_2" width="200px;" align="middle">
 		<option>Officer Age</option>
 		<option>Officer Ethnicity</option>
@@ -56,19 +66,21 @@
 		<option>Offender Income</option>
 		<option>Category</option>
 		<option>Description</option>
-		<option>Date</option>
 		<option>Day of the Week</option>
 		<option>Police Department District</option>
 		<option>Resolution</option>
 		<option>Address</option>
 	</select>
+	<br>
 
-	<!-- <ul class="actions" align="middle">
-		<li>
-			<button type="submit" class="button alt big">Submit</a>
-		</li>
-	</ul> -->
-	<button type="submit" class="center-block" color="green">Submit</button>
+	<footer class="wrapper align-center">
+		<ul class="actions">
+			<li>
+				<button type="submit" class="button alt big">Submit</a>
+			</li>
+		</ul>
+	</footer>
+	<!-- <button type="submit" class="center-block" color="green">Submit</button> -->
 </form>
 
 <!-- 	<table style="width:50%;margin: 0 auto;">

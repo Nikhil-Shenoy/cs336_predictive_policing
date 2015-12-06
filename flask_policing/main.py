@@ -5,8 +5,9 @@ import pprint
 import matplotlib.pyplot as plt
 import numpy as np 
 import sys
+from random import randint
 from parse import *
-from pylab import *
+import pylab
 import os
 
 '''
@@ -95,6 +96,33 @@ def replace_characters(word):
 	return word
 
 
+def english_legend(style):
+	colors = {'b': 'Blue',
+				'g': 'Green',
+				'r': 'Red',
+				'c': 'Cyan',
+				'm': 'Magenta',
+				'y': 'Yellow',
+				'k': 'Black',
+				'w': 'White'}
+
+	line_styles = {'-': 'Solid line',
+					'-.': 'Dotted and dashed line',
+					'--': 'Dashed line',
+					':': 'Finely dashed line'}
+
+	legend_string = ''
+
+	legend_string += colors[style[0]]
+	legend_string += ', '
+
+	remaining = style[1:]
+
+	legend_string += line_styles[remaining]
+
+	return legend_string	
+
+
 # DB configuration
 db = MySQLdb.connect(user=username, passwd=password, host=host, db=dbname)
 cursor = db.cursor()
@@ -129,27 +157,35 @@ def search_results():
 			if param_1 == 'category' or param_1 == 'descript':
 				label_query = "SELECT DISTINCT {0} FROM locations order by {0}".format(param_1)
 			else:
-				label_query = "SELECT DISTINCT {0} FROM locations, participants order by {0}".format(param_1)
+				if param_1 in l_cols:
+					label_query = "SELECT DISTINCT {0} FROM locations order by {0}".format(param_1)
+				elif param_1 in p_cols:
+					label_query = "SELECT DISTINCT {0} FROM participants order by {0}".format(param_1)
 			
 			if param_2 == 'category' or param_2 == 'descript':
 				query_1 = "SELECT DISTINCT {0} FROM locations order by {0}".format(param_2)
 			else:
-				query_1 = "SELECT DISTINCT {0} FROM locations, participants order by {0}".format(param_2)
+				if param_2 in l_cols:
+					query_1 = "SELECT DISTINCT {0} FROM locations order by {0}".format(param_2)
+				elif param_2 in p_cols:
+					query_1 = "SELECT DISTINCT {0} FROM participants order by {0}".format(param_2)
 
-			print "get expected labels"
-			print label_query
+			# print "get expected labels"
+			# print label_query
 			expected_labels = list()
 			cursor.execute(label_query)
 			for row in cursor.fetchall():
-				expected_labels.append(row[0])
+				if row[0] != '':
+					expected_labels.append(row[0])
 
-			print "get distinct labels"
-			print query_1
+			# print "get distinct labels"
+			# print query_1
 			cursor.execute(query_1)
 			distinct = list()
 			for row in cursor.fetchall():
-				print row
-				distinct.append(row[0])
+				# print row
+				if row[0] != '':
+					distinct.append(row[0])
 
 			distinct = custom_sort(distinct)
 
@@ -159,7 +195,7 @@ def search_results():
 				table = 'participants'
 
 			print "query database for each graph's data"
-			# pp.pprint(distinct)
+			pp.pprint(distinct)
 			graph_data = dict()
 			for item in distinct:
 				query_2 = '''SELECT {0}, COUNT(*) FROM {1} 
@@ -191,9 +227,10 @@ def search_results():
 				graph_data[item] = sorted(coordinates,key=lambda tup: tup[1])
 
 
-			pp.pprint(graph_data)
+			# pp.pprint(graph_data)
 
-			print "graphing the data"
+
+			colors = ['b','g','r','c','m','y','k']			
 			# Graph the data
 			for i in range(len(distinct)):
 				test = graph_data[distinct[i]]
@@ -215,12 +252,12 @@ def search_results():
 				N = len(labels)
 				ind = np.arange(N)
 				width = 2
-				rects = barh(ind + (width/2),values,align='center')
-				yticks(ind + (width/2),labels)
-				xlabel('Frequency')
-				tick_params(axis='y',which='major',pad=15)
-				title('Frequency of {0} = {1}'.format(org_1,distinct[i]))
-				grid(True)
+				rects = plt.barh(ind + (width/2),values,align='center',color=colors)
+				plt.yticks(ind + (width/2),labels)
+				plt.xlabel('Frequency')
+				plt.tick_params(axis='y',which='major',pad=15)
+				plt.title('Frequency of {0} = {1}'.format(org_1,distinct[i]))
+				plt.grid(True)
 
 				plt.autoscale()
 				plt.tight_layout()
@@ -235,7 +272,8 @@ def search_results():
 			
 			print "creating image urls"
 			image_urls = list()
-			for key in graph_data:
+			for i in range(len(distinct)):
+				key = distinct[i]
 				key = replace_characters(key)
 
 				url = "static/images/graphs/{0}.png".format(key)
@@ -258,11 +296,20 @@ def top_records_results():
 		org_2 = request.form['param_2']
 		label_of_interest = convert[org_1]
 
+		print "N = {0}".format(org_2)
+
+		if request.form['param_2'] == None or request.form['param_2'] == '':
+			err = "No value provided for N"
+			return render_template('top_records_results',error=err)
+
+
+
 		try:		
 			N = int(org_2)
 		except:
 			err = "Could not convert N into an integer"
 			return render_template('top_records_results.html',error=err)
+
 
 		if label_of_interest in l_cols:
 			table = "locations"
@@ -285,7 +332,8 @@ def top_records_results():
 		return render_template('top_records_results.html',col_1=org_1,results=results[0:N])
 
 	else:
-		return render_template('top_records_results.html')		
+		err = "No value provided for N"
+		return render_template('top_records_results.html',error=err)		
 
 @app.route('/time_series')
 def time_series():
@@ -295,6 +343,10 @@ def time_series():
 def time_series_results():
 	print "Inside time_series_results. Got {0} request".format(request.method)
 	if request.method == 'POST':
+		# dir_path = 'static/images/graphs/'
+		# for f in os.listdir(dir_path):
+		# 	os.remove(dir_path + f)
+
 		org_1 = request.form['param_1']
 		org_2 = request.form['param_2']
 		label_of_interest = convert[org_1]
@@ -304,27 +356,34 @@ def time_series_results():
 		if label_of_interest in l_cols:
 			table = "locations"
 		elif label_of_interest in p_cols:
-			table = 'participants'
+			table = 'participants' # can't get date from participants
 
 		label_query = "select distinct {0} from {1}".format(label_of_interest,table)
 		cursor.execute(label_query)
 		labels = list()
 		for row in cursor.fetchall():
-			labels.append(row[0])
+			if row[0] != '':
+				labels.append(row[0])
 
 
 		# Sorted arrays to be used later for graphing
-		labels = sort(labels)
+		labels = sorted(labels)
 		time_periods = list()
-		if time_period == "Hours in a day":
+		if time_period == "Hours":
 			for i in range(24):
-				time_periods.append(str(i))
+				time_periods.append(i)
+		elif time_period == 'Months':
+			for i in range(12):
+				time_periods.append(i+1)
 		elif time_period == "Years":
-			year = 2003
-			while year != 2016:
-				time_periods.append(str(year))
-				
-		time_periods = sort(time_periods)
+			for i in range(2003,2016):
+				time_periods.append(i)
+			# year = 2003
+			# while year != 2016:
+			# 	time_periods.append(str(year))
+			# 	year += 1
+
+		time_periods = sorted(time_periods)
 
 		# set up the bins
 		bins = dict()
@@ -335,36 +394,118 @@ def time_series_results():
 		label_data = dict()
 		for label in labels:
 			if label != '':
-				label_data[label] = bins
+				label_data[label] = None
+
+		# pp.pprint(label_data)
+
+		test_list = list()
+		# pp.pprint(labels)
+		for label in labels:
+			query = "select dates, {0} from locations where {0} = \'{1}\'".format(label_of_interest,label)
+			cursor.execute(query)
+
+			data_dict = dict()
+			for i in range(len(time_periods)):
+				data_dict[time_periods[i]] = 0
+
+			# count = 0
+			for row in cursor.fetchall():
+				# count += 1
+				params = parse("{month}/{day}/{year} {hour}:{minutes}",row[0])
 
 
-		# Issue the query for data
-		query = "select dates, {0} from {1}".format(label_of_interest,table)
-		cursor.execute(query)
+				if time_period == "Hours":
+					param = params['hour']
+					data_dict[int(param)] += 1					
+				elif time_period == "Months":
+					param = params['month']
+					data_dict[int(param)] += 1					
+				elif time_period == "Years":
+					param = params['year']
+					data_dict[int(param)] += 1
 
-		
-		# Sort each data point into its appropriate bin
-		for row in cursor.fetchall():
-			if row[0] != '' and row[1] != '':
-				date = row[0]
-				label = row[1]
+			# print "count for {0} = {1}".format(label,count)
+			
+			change_to_tuples = list()
+			for key in data_dict:
+				change_to_tuples.append((key,data_dict[key]))
 
-				params = parse("{month}/{day}/{year} {hour}:{minutes}",date)
+			test_list.append((label,sorted(change_to_tuples,key=lambda tup: tup[0])))
+			label_data[label] = data_dict
 
-				label_data[label][params['year']] += 1
 
-		pp.pprint(label_data)
+
+		# pp.pprint(test_list)
+
 
 		# Extract data to prepare for graphing
+		colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
+		line_styles = ['-','-.','--',':']
 
-		
-		# pp.pprint(x_labels)
+		styles = list()
+		for color in colors:
+			for line_style in line_styles:
+				styles.append(color + line_style)
+
+		pp.pprint(test_list)
+		largest = 0
+		used_styles = list()
+		legend = list()
+
+		# try:
+		# 	img_url = 'static/images/graphs/time_series.png'
+		# 	os.remove(img_url)
+		# except OSError:
+		# 	pass
+
+		fig, ax = plt.subplots()
+		for pair in test_list:
+			data_points = pair[1]
+			x = list()
+			y = list()		
+			for i in range(len(data_points)):
+				x.append(data_points[i][0])
+				y.append(data_points[i][1])
 
 
+			if max(y) > largest:
+				largest = max(y)
+
+			style = styles[0]
+			while style in used_styles:
+				if len(used_styles) == len(styles):
+					used_styles = list()
+					break
+
+				style = styles[randint(0,len(styles))-1]
+
+			ax.plot(x,y,style,label=pair[0])
+			used_styles.append(style)
+
+			legend.append((pair[0],english_legend(style)))
+	
+		# pp.pprint(legend)
+
+		plt.ylabel('Frequency')
+		plt.xlabel('Time')
+		plt.title('Count of Crime by {0}'.format(org_1))
+		plt.grid(True)
 
 
+		org_1 = replace_characters(org_1)
+		time_period = replace_characters(time_period)
+		img_url = 'static/images/graphs/time_series_{0}_{1}.png'.format(org_1,time_period)
+		print img_url
+		plt.savefig(img_url)
+
+
+		return render_template('time_series_results.html',url=img_url,col_1=org_1,legend=legend,type=time_period)
+	else:
 		return render_template('time_series_results.html')
 
+@app.route('/gallery')
+def galler():
+	return render_template("gallery.html")
 
 @app.route('/search_main')
 def search_main():

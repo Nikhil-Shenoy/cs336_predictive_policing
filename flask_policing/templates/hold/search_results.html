@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block doc_title %} Basic Lookup Results {% endblock %}
+{% block title %} Basic Lookup Results {% endblock %}
+{% block tagline %} Results from the special query {% endblock %}
+{% block main %}
+	{% if error %}
+		<p align="middle">Error: {{ error }}. Click the button below to try searching again.</p>
+	{% else %}
+		{% for link in urls %}
+			<img src={{ link }} align="middle">
+		{% endfor %}
+	{% endif %}
+
+	<footer>
+		<ul align="middle" class="actions">
+			<li>
+				<a href="search_main" class="button alt big">Back to Search</a>
+			</li>
+		</ul>
+	</footer>
+{% endblock %}	

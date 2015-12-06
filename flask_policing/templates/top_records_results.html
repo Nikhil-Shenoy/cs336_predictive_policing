@@ -4,12 +4,19 @@
 {% block tagline %} Top {{ N }} Results {% endblock %}
 {% block main %}
 	{% if error %}
+		<header class="major">
+					<h2>Top Records Search Results</h2>
+		</header>
 		<p align="middle">Error: {{ error }}. Click the button below to try searching again.</p>
 	{% else %}
+		
+	<div>
+	<h2 style="text-align: center; <!-- font-weight: bold; -->">Top Records Search Results</h2>
+
 		<table style="width:50%;margin: 0 auto;">
 				<tr>
-					<td align="middle"><strong>{{ col_1 }}</strong></td>
-					<td align="middle"><strong>Count</strong></td>
+					<td align="middle"><strong style="color: white;">{{ col_1 }}</strong></td>
+					<td align="middle"><strong style="color: white;">Count</strong></td>
 				</tr>
 				{% for result in results %}
 					<tr>
@@ -18,9 +25,10 @@
 					</tr>
 				{% endfor %}
 		</table>
+	</div>
 	{% endif %}
 
-	<footer>
+	<footer class="wrapper align-center">
 		<ul class="actions">
 			<li>
 				<a href="search_main" class="button alt big">Back to Search</a>

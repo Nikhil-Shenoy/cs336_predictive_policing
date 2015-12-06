@@ -1,51 +1,83 @@
 {% extends "layout.html" %}
 {% block doc_title %} Search Main {% endblock %}
-{% block title %} {{ title }} {% endblock %}
-{% block tagline %} {{ tagline }}   {% endblock %}
 {% block main %}
+
+<head>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
 	<section id="two" class="wrapper style2 align-left">
 				<div class="container">
-					<header>
-						<h2 id="Numerical Search"><b>Numerical Search</b></h2>
+
+            	<h2 style="text-align: left; color: black; font-size: 50px;">Explore Our Records</h2>
+
+				 <p style="font-size: 26px; line-height: 130%">Curious about crime? Take a look at our data covering a complete landscape of crime in San Francisco. Through various searches, analysis of normally overwhelming and tedious data is easy, organized, and accessible. Learn about interesting trends that exist amongst crime offenders and law enforcement in this community, such as possible correlations between law enforcement response and management of arrests and offender demographics. Or, discover the opposite - find interesting statistics about law enforcement and the police officers that protect your community. Whatever you want to know, we can help.</p>
+
+				<img src="{{ url_for('static', filename='images/police2.jpg') }}" style="border:4px solid black;
+" width="100%" alt="Office">
+				<br><br>
+
+				<section class="align-center" style="font-size: 24px;">
+				<table>
+					<tr>
+						<td style="width:50%">
+						<h2 id="Numerical Search" style="color: black;">Numerical Search</b></h2>
 						<p>Numerical Search relies on a simple analysis scheme; you specify two attributes you want to compare, and we return histograms of the first parameter versus the second. We generate a histogram for every value of your second parameter, which provides you with the entire joint distribution of those two parameters</p>
+						</td>
+						<td style="width:50%">
+						<h2 id="Top Records" style="color: black;">Top Records</b></h2>
+						<p>If you like to keep things simple, perhaps the Top Records feature is for you. Based on a given paramter, you'll get a table with top N values, where you can specify N.</p>
+						</td>
+					</tr>
+
+					<tr>
+					<td>
 						<ul class="actions">
 							<li>
 								<a href="search" class="button alt big">Numerical Search</a>
 							</li>
 						</ul>
-					</header>
-
-					<header>
-						<h2 id="Top Records"><b>Top Records</b></h2>
-						<p>If you like to keep things simple, perhaps the Top Records feature is for you. Based on a given paramter, you'll get a table with top N values, where you can specify N.</p>
+					</td>
+					<td>
 						<ul class="actions">
 							<li>
 								<a href="top_records" class="button alt big">Top Records</a>
 							</li>
 						</ul>
-					</header>
+					</td>
+					</tr>
 
-					<header>
-						<h2 id="Random Trend"><b>Random Trend</b></h2>
-						<p>Feeling capricious? Head over to our random trend section, and we'll give you just that.</p>
-						<ul class="actions">
-							<li>
-								<a href="search" class="button alt big">Random Treen</a>
-							</li>
-						</ul>
-					</header>
+					<tr>
+						<td align="middle" style="width:50%">
+						<h2 id="Time Series" style="color: black;">Time Series</b></h2>
+						<p>Head over to our Time Series section, and we'll compare information over hours, days, months, or years.</p>
+						</td>
+						<td align="middle" style="width:50%">
+						<h2 id="Time Series" style="color: black;">Gallery</b></h2>
+						<p>View example graphs of our system.</p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<ul class="actions">
+								<li>
+									<a href="time_series" class="button alt big">Time Series</a>
+								</li>
+							</ul>
+						</td>
+						<td>
+							<ul class="actions">
+								<li>
+									<a href="gallery" class="button alt big">Go to Gallery</a>
+								</li>
+							</ul>
+						</td>
+					</tr>
+				</table>
+			</section>
 
-					<header>
-						<h2 id="Time Series"><b>Time Series</b></h2>
-						<p>Head over to our Time Series section, and we'll show you time plots.</p>
-						<ul class="actions">
-							<li>
-								<a href="time_series" class="button alt big">Time Series</a>
-							</li>
-						</ul>
-					</header>
 				</div>
-	</section>
+			</section>
 
 	<!-- <footer>
 	</footer> -->

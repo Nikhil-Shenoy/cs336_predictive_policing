@@ -4,17 +4,20 @@
 {% block tagline %} Graph Versus Time {% endblock %}
 {% block main %}
 	
+	<h2 style="text-align: center; <!-- font-weight: bold; -->">Time Series Search</h2>
+
+	<p align="middle" style="font-size: 20px; line-height: 130%">Making a search is easy. Simply enter a field using our drop-down menus to input your inquiry, and watch as we provide you with your answer!
+
+	<br><br>
+
+	<b style="color: white;">How to Use this Search</b>: Enter a field to analyze. For instance, say we want to find out the frequency of different types of crime over the course of a day. We can input "Category" in the first drop-down menu, and we can select a time period from the second drop-down menu. With this scheme, analyzing features over time is a breeze!
+	</p>
+
+
 	<form method="post" action="{{ url_for('time_series_results') }}" class="form-inline">
 
 		<label for="param_1">Analyze </label>
 		<select class="form-control" name="param_1" width="200px;" align="middle">
-			<option>Officer Age</option>
-			<option>Officer Ethnicity</option>
-			<option>Officer Gender</option>
-			<option>Offender Age</option>
-			<option>Offender Ethnicity</option>
-			<option>Offender Gender</option>
-			<option>Offender Income</option>
 			<option>Category</option>
 			<option>Description</option>
 			<option>Day of the Week</option>
@@ -25,12 +28,20 @@
 
 		<label for="param_2">over </label>
 		<select class="form-control" name="param_2" width="200px;" align="middle">
-			<option>Hours in a day</option>
+			<option>Hours</option>
+			<option>Months</option>
 			<option>Years</option>
 		</select>
 
 
-		<button type="submit" class="btn btn-default">Submit</button>
+		<footer class="wrapper align-center">
+			<ul class="actions">
+				<li>
+					<!-- <a href="{{ url_for('time_series_results') }}" class="button alt big"><b>Submit</b></a> -->
+					<button type="submit" class="btn btn-default">Submit</button>
+				</li>
+			</ul>
+		</footer>
 	</form>
 	
 {% endblock %}

@@ -6,13 +6,20 @@
 	{% if error %}
 		<p align="middle">Error: {{ error }}. Click the button below to try searching again.</p>
 	{% else %}
-		{% for link in urls %}
-			<img src={{ link }} align="middle">
-		{% endfor %}
+
+		<header class="major">
+					<h2>Numerical Search Results</h2>
+		</header>
+
+		<div class="wrapper align-center">
+			{% for link in urls %}
+				<img src={{ link }} align="middle">
+			{% endfor %}
+		</div>
 	{% endif %}
 
-	<footer>
-		<ul align="middle" class="actions">
+	<footer class="wrapper align-center">
+		<ul class="actions">
 			<li>
 				<a href="search_main" class="button alt big">Back to Search</a>
 			</li>
