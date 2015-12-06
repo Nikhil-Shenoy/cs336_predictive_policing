@@ -3,20 +3,48 @@
 {% block tagline %}  {{tagline}}  {% endblock %}
 {% block main %}
 
-	<header class="major">
-				<h2>Our Team</h2>
-	</header>
+<head>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<header class="major">
+            <h2 style="text-align: left; color: black;">Meet Our Team</h2>
+</header>
+
+ <p style="font-size: 26px">Learn more about each unique member of our team. We come from different backgrounds, yet we're all dedicated to the success of your efforts, and the safety and protection of our communities. Your goals are our mission, here at SF Predictive Policing. Feel free to reach out to us with questions on predictive policing and what our company does to tackle crime.</p>
+
+<div class="carousel">
+
+  <ul class="panes">
+
+    <li>
+      <h2 style="right:120px; bottom:100px; left:10px;"><b style="color: white; font-size: 45px">Meet the San Francisco Predictive Policing Team!</b><br> We are a creative group of people dedicated to inventing new ways to protect your communities and stop crime. </h2>
+      <img src="{{ url_for('static', filename='images/sfpp.png') }}" alt="SFPP">
+    </li>
+
+    <li>
+      <h2 style="right:120px; bottom:40px; left:10px;"><b style="color: white">Meet Christina Parry</b>: Your lovable and enthusiastic engineering friend, that early-morning runner, and a person with the most bubbly personality. She's a Computer and Electrical Engineering student, graduating in May 2017.</h2> 
+      <img src="{{ url_for('static', filename='images/christina.jpg') }}" alt="Christina Parry">
+    </li>
+
+    <li>
+      <h2 style="right:120px; top: 45px; left:10px;"><b style="color: white">Meet Nikhil Shenoy</b>: A Computer and Electrical Engineer, the genius behind our ambitious project, and our go-to tech guy for solving Ubuntu problems (okay, all of our problems, really).</h2>
+      <img src="{{ url_for('static', filename='images/nikhil.jpg') }}" alt="Nikhil Shenoy">
+    </li>
+
+    <li>
+      <h2 style="right:120px; bottom:40px; left:10px;"><b style="color: white">Meet Michelle Hwang</b>: The lone Computer Science major on the team and girl who authored these blurbs. Hello, World.</h2>
+      <img src="{{ url_for('static', filename='images/michelle.jpg') }}" alt="Michelle Hwang">
+    </li>
+
+    <li>
+      <h2 style="right:120px; bottom:100px; left:10px;"><b style="color: white">Interested in Our Team?</b><br>All inquiries welcome. Send us an email at <u>dreamteam@sfpp.com</u> or call us at 415-274-9161. We look forward to hearing from you!</h2>
+      <img src="{{ url_for('static', filename='images/office.jpg') }}" alt="Office">
+    </li>
+
+  </ul>
+
+</div>
 
 
-	<div class="wrapper align-center">
-		<img src="{{ url_for('static', filename='images/christina.jpg') }}" style="width:275px;height:380px;">
-		<p align="middle">Christina is a junior in the Electrical and Computer Engineering Department. She will graduate in May 2017.</p>
-
-		<img src="{{ url_for('static', filename='images/michelle.jpg') }}" style="width:225px;height:250px;" align="middle">
-		<p align="middle">Michelle is a junior in the Computer Science Department. She will graduate in May 2017.</p>
-
-
-		<img src="{{ url_for('static', filename='images/nikhil.jpg') }}" style="width:225px;height:225px;" align="middle">
-		<p align="middle">Nikhil is a senior in the Electrical and Computer Engineering Department, and will graduate in May 2016. He intends to pursue graduate study in machine learning and hopes to tackle impactful, industry-changing problems in analytics with his skills. </p>
-	</div>		
 {% endblock %}
