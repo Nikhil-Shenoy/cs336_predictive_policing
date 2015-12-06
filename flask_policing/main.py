@@ -372,17 +372,16 @@ def time_series_results():
 		if time_period == "Hours":
 			for i in range(24):
 				time_periods.append(i)
+		elif time_period == "Days":
+			for i in range(31):
+				time_periods.append(i+1)
 		elif time_period == 'Months':
 			for i in range(12):
 				time_periods.append(i+1)
 		elif time_period == "Years":
 			for i in range(2003,2016):
 				time_periods.append(i)
-			# year = 2003
-			# while year != 2016:
-			# 	time_periods.append(str(year))
-			# 	year += 1
-
+		
 		time_periods = sorted(time_periods)
 
 		# set up the bins
@@ -416,6 +415,9 @@ def time_series_results():
 
 				if time_period == "Hours":
 					param = params['hour']
+					data_dict[int(param)] += 1					
+				elif time_period == "Days":
+					param = params['day']
 					data_dict[int(param)] += 1					
 				elif time_period == "Months":
 					param = params['month']

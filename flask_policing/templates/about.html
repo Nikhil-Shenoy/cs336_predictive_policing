@@ -3,14 +3,20 @@
 {% block tagline %}  {{tagline}}  {% endblock %}
 {% block main %}
 
-	<img src="{{ url_for('static', filename='images/christina.jpg') }}" style="width:225px;height:400px;">
-	<p align="middle">Christina is a junior in the Electrical and Computer Engineering Department. She will graduate in May 2017.</p>
-
-	<img src="{{ url_for('static', filename='images/michelle.jpg') }}" style="width:225px;height:250px;" align="middle">
-	<p align="middle">Michelle is a junior in the Computer Science Department. She will graduate in May 2017.</p>
+	<header class="major">
+				<h2>Our Team</h2>
+	</header>
 
 
-	<img src="{{ url_for('static', filename='images/nikhil.jpg') }}" style="width:200px;height:200px;" align="middle">
-	<p align="middle">Nikhil is a senior in the Electrical and Computer Engineering Department. He will graduate in May 2016.</p>
+	<div class="wrapper align-center">
+		<img src="{{ url_for('static', filename='images/christina.jpg') }}" style="width:275px;height:380px;">
+		<p align="middle">Christina is a junior in the Electrical and Computer Engineering Department. She will graduate in May 2017.</p>
 
+		<img src="{{ url_for('static', filename='images/michelle.jpg') }}" style="width:225px;height:250px;" align="middle">
+		<p align="middle">Michelle is a junior in the Computer Science Department. She will graduate in May 2017.</p>
+
+
+		<img src="{{ url_for('static', filename='images/nikhil.jpg') }}" style="width:225px;height:225px;" align="middle">
+		<p align="middle">Nikhil is a senior in the Electrical and Computer Engineering Department, and will graduate in May 2016. He intends to pursue graduate study in machine learning and hopes to tackle impactful, industry-changing problems in analytics with his skills. </p>
+	</div>		
 {% endblock %}
