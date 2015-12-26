@@ -515,10 +515,27 @@ def search_main():
 				you can start analyzing trends immediately.'''
 	return render_template('search_main.html',title='Search Main',tagline=tagline)
 
+#####################################################################
+# Error Handling
+#####################################################################
+@app.errorhandler(500)
+def error_505(error):
+	err = "the server is a little busy"
+	return render_template("error.html",error=err)
+
+@app.errorhandler(504)
+def error_504(error):
+	error = "your query timed out"
+	return render_template("error.html",error=err)
+
+@app.errorhandler(404)
+def error_404(error):
+	error = "the page you were looking for doesn't exist"
+	return render_template("error.html",error=err)
 
 if __name__ == '__main__':
 	app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 	# app.run(debug=True)
-	app.run()
+	app.run(threaded=True,port=8000)
 
 
