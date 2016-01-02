@@ -14,9 +14,10 @@
 	</p>
 
 
-	<form method="post" action="{{ url_for('time_series_results') }}" class="form-inline">
+	<div class="wrapper align-center">
+	<form display:"inline" method="post" action="{{ url_for('time_series_results') }}" class="form-inline">
 
-		<label for="param_1">Analyze </label>
+		<label for="param_1"><font size="7"><b>Analyze</b></font> </label>
 		<select class="form-control" name="param_1" width="200px;" align="middle">
 			<option>Category</option>
 			<option>Description</option>
@@ -25,8 +26,7 @@
 			<option>Resolution</option>
 			<option>Address</option>
 		</select>
-
-		<label for="param_2">over </label>
+		<label for="param_2"><font size="7"><b>over</b></font> </label>
 		<select class="form-control" name="param_2" width="200px;" align="middle">
 			<option>Hours</option>
 			<option>Days</option>
@@ -39,10 +39,11 @@
 			<ul class="actions">
 				<li>
 					<!-- <a href="{{ url_for('time_series_results') }}" class="button alt big"><b>Submit</b></a> -->
-					<button type="submit" class="btn btn-default">Submit</button>
+					<button type="submit" class="button alt big">Submit</button>
 				</li>
 			</ul>
 		</footer>
 	</form>
+	</div>
 	
 {% endblock %}

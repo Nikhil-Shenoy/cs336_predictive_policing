@@ -36,7 +36,7 @@
 
 </p>
 
-<form method="post" action="{{ url_for('search_results') }}" class="form-inline">
+<form class="form-inline" method="post" action="{{ url_for('search_results') }}" >
 
 	<label for="param_1" style="color: white;">Analyze frequency of </label>
 	<select class="form-control" name="param_1" width="200px;" align="middle">
@@ -48,14 +48,13 @@
 		<option>Offender Gender</option>
 		<option>Offender Income</option>
 		<option>Category</option>
-		<option>Description</option>
 		<option>Day of the Week</option>
 		<option>Police Department District</option>
 		<option>Resolution</option>
 		<option>Address</option>
 	</select>
 
-	<label for="param_2" style="color:white;">Select a parameter to analyze: </label>
+	<label for="param_2" style="color:white;">versus </label>
 	<select class="form-control" name="param_2" width="200px;" align="middle">
 		<option>Officer Age</option>
 		<option>Officer Ethnicity</option>
@@ -65,14 +64,12 @@
 		<option>Offender Gender</option>
 		<option>Offender Income</option>
 		<option>Category</option>
-		<option>Description</option>
 		<option>Day of the Week</option>
 		<option>Police Department District</option>
 		<option>Resolution</option>
 		<option>Address</option>
 	</select>
 	<br>
-
 	<footer class="wrapper align-center">
 		<ul class="actions">
 			<li>
@@ -80,8 +77,11 @@
 			</li>
 		</ul>
 	</footer>
-	<!-- <button type="submit" class="center-block" color="green">Submit</button> -->
+
 </form>
+	<!-- <button type="submit" class="center-block" color="green">Submit</button> -->
+
+
 
 <!-- 	<table style="width:50%;margin: 0 auto;">
 	<tr>

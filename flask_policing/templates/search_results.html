@@ -11,10 +11,15 @@
 					<h2>Numerical Search Results</h2>
 		</header>
 
-		<div class="wrapper align-center">
+		<div class="carousel">
+			<ul class="panes">
+				
 			{% for link in urls %}
-				<img src={{ link }} align="middle">
+				<li>
+					<img src={{ link }} align="middle">
+				</li>
 			{% endfor %}
+			</ul>
 		</div>
 	{% endif %}
 

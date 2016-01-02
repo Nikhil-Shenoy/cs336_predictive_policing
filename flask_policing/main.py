@@ -150,9 +150,18 @@ def search_results():
 		param_1 = convert[org_1]
 		param_2 = convert[org_2]
 
+
+		print "param_1 = {0} and param_2 = {1}".format(param_1,param_2)
+
 		if org_1 == org_2:
 			err = "Cannot compare a label with itself"
 			return render_template('search_results.html',error=err)
+		if param_1 in l_cols and param_2 in p_cols:
+			err = "Something went wrong....try searching again"
+			return render_template("error.html",error=err)
+		elif param_1 in p_cols and param_2 in l_cols:
+			err = "Something went wrong....try searching again"
+			return render_template("error.html",error=err)
 		else:
 			if param_1 == 'category' or param_1 == 'descript':
 				label_query = "SELECT DISTINCT {0} FROM locations order by {0}".format(param_1)
@@ -520,16 +529,19 @@ def search_main():
 #####################################################################
 @app.errorhandler(500)
 def error_505(error):
+	print "500 error"
 	err = "the server is a little busy"
 	return render_template("error.html",error=err)
 
 @app.errorhandler(504)
 def error_504(error):
+	print "504 error"
 	error = "your query timed out"
 	return render_template("error.html",error=err)
 
 @app.errorhandler(404)
 def error_404(error):
+	print "404 error"
 	error = "the page you were looking for doesn't exist"
 	return render_template("error.html",error=err)
 
